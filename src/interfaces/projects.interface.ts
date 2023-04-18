@@ -11,6 +11,12 @@ interface iProject {
   developerId: number;
 }
 
+interface iProjectTechnology {
+  addedIn: Date;
+  technologyId: number;
+  projectId: number;
+}
+
 interface iTech {
   id: number;
   name: string;
@@ -22,4 +28,17 @@ type iProjectRequest = Omit<iProject, "id">;
 
 type queryResultProjects = QueryResult<iProject>;
 
-export { iProject, iProjectRequest, queryResultProjects, iTech, iTechRequest };
+type queryResultTech = QueryResult<iTech>;
+
+type queryResultProjectTech = QueryResult<iProjectTechnology>;
+
+export {
+  iProject,
+  iProjectRequest,
+  queryResultProjects,
+  iTech,
+  iTechRequest,
+  queryResultTech,
+  iProjectTechnology,
+  queryResultProjectTech,
+};

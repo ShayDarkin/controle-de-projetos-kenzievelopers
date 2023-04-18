@@ -14,7 +14,9 @@ import {
 } from "./middlewares/developer.middleware";
 import {
   createProject,
+  createTechnology,
   deleteProject,
+  insertQueryCreateTechnologies,
   readProjectsById,
   updateProject,
 } from "./logics/projects.logic";
@@ -63,7 +65,7 @@ app.delete(
   ensureMiddlewareProjectExistsForTechnology,
   deleteProject
 );
-app.post("/projects/:id/technologies");
+app.post("/projects/:id/technologies", insertQueryCreateTechnologies);
 app.delete("/projects/:id/technologies/:name");
 
 export default app;
