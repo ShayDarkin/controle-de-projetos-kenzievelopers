@@ -3,7 +3,6 @@ import { QueryConfig } from "pg";
 import { client } from "../database";
 import {
   iTech,
-  iTechRequest,
   queryResultProjectTech,
   queryResultProjects,
   queryResultTech,
@@ -17,9 +16,12 @@ const ensureMiddlewareDevExistsForProjects = async (
   const id: number = parseInt(request.body.developerId);
 
   const queryString: string = `
-  SELECT * 
-  FROM developers 
-  WHERE id = $1;
+  SELECT 
+    * 
+  FROM 
+    developers 
+  WHERE 
+    id = $1;
   `;
 
   const queryConfig: QueryConfig = {
@@ -43,9 +45,12 @@ const ensureMiddlewareProjectExistsForTechnology = async (
   const id: number = parseInt(request.params.id);
 
   const queryString: string = `
-    SELECT * 
-    FROM projects 
-    WHERE id = $1;
+  SELECT 
+    * 
+  FROM 
+    projects 
+  WHERE 
+    id = $1;
     `;
 
   const queryConfig: QueryConfig = {
@@ -113,7 +118,8 @@ const ensureTechAlreadyAssociatedIsProject = async (
       * 
     FROM 
       projects_technologies 
-    WHERE "technologyId" = $1 AND "projectId" = $2
+    WHERE 
+      "technologyId" = $1 AND "projectId" = $2
     `;
 
   const queryConfigVerifyTech: QueryConfig = {
@@ -183,7 +189,8 @@ const ensureDeleteMiddleware = async (
       * 
     FROM 
       projects_technologies 
-    WHERE "technologyId" = $1 AND "projectId" = $2
+    WHERE 
+      "technologyId" = $1 AND "projectId" = $2
     `;
 
   const queryConfigVerifyTech: QueryConfig = {

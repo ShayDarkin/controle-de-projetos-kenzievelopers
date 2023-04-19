@@ -84,7 +84,8 @@ const updateProject = async (
     UPDATE projects
         SET(%I) = ROW(%L)
 
-    WHERE id = %L
+    WHERE 
+      id = %L
     RETURNING *;
   `,
     Object.keys(payload),
@@ -104,8 +105,11 @@ const deleteProject = async (
   const id: number = parseInt(request.params.id);
 
   const queryString: string = `
-  DELETE FROM projects
-  WHERE id =$1
+  DELETE 
+  FROM 
+    projects
+  WHERE 
+    id =$1
   `;
 
   const queryConfig: QueryConfig = {
@@ -136,10 +140,8 @@ const createTechnologyForProject = async (
     `
   INSERT INTO 
     projects_technologies(%I)
-  
   VALUES
     (%L)
-
   RETURNING *;
   `,
     Object.keys(payloadTech),
@@ -167,11 +169,14 @@ const createTechnologyForProject = async (
   JOIN       
     projects_technologies pt 
   
-  ON pt."projectId" = proj."id"      
+  ON 
+    pt."projectId" = proj."id"      
   
-  JOIN technologies tech ON tech.id = pt."technologyId"      
+  JOIN 
+    technologies tech ON tech.id = pt."technologyId"      
   
-  WHERE proj.id = $1;  `;
+  WHERE 
+    proj.id = $1;  `;
 
   const queryConfigResponseTech: QueryConfig = {
     text: queryStringResponseTech,
@@ -195,8 +200,8 @@ const deleteTechForProjects = async (
     *
   FROM
     technologies
-
-  WHERE "name"= $1
+  WHERE 
+    "name"= $1
   `;
 
   const queryConfigTech: QueryConfig = {
@@ -213,7 +218,8 @@ const deleteTechForProjects = async (
   FROM 
     projects_technologies
 
-    WHERE "technologyId" = $1 AND "projectId" = $2
+  WHERE 
+    "technologyId" = $1 AND "projectId" = $2
   `;
 
   const queryConfigDelete: QueryConfig = {
