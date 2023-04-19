@@ -14,15 +14,17 @@ import {
 } from "./middlewares/developer.middleware";
 import {
   createProject,
-  createTechnology,
+  createTechnologyForProject,
   deleteProject,
-  insertQueryCreateTechnologies,
+  deleteTechForProjects,
   readProjectsById,
   updateProject,
 } from "./logics/projects.logic";
 import {
+  ensureDeleteMiddleware,
   ensureMiddlewareDevExistsForProjects,
   ensureMiddlewareProjectExistsForTechnology,
+  ensureTechAlreadyAssociatedIsProject,
 } from "./middlewares/projects.middleware";
 
 const app: Application = express();
@@ -65,7 +67,17 @@ app.delete(
   ensureMiddlewareProjectExistsForTechnology,
   deleteProject
 );
-app.post("/projects/:id/technologies", insertQueryCreateTechnologies);
-app.delete("/projects/:id/technologies/:name");
+app.post(
+  "/projects/:id/technologies",
+  ensureMiddlewareProjectExistsForTechnology,
+  ensureTechAlreadyAssociatedIsProject,
+  createTechnologyForProject
+);
+app.delete(
+  "/projects/:id/technologies/:name",
+  ensureMiddlewareProjectExistsForTechnology,
+  ensureDeleteMiddleware,
+  deleteTechForProjects
+);
 
 export default app;
